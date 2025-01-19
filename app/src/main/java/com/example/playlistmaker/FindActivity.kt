@@ -9,8 +9,6 @@ import androidx.core.view.WindowInsetsCompat
 class FindActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_find)
-
     }
 }
