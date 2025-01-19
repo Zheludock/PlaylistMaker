@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:id="@+id/settings_top_bar"
         android:padding="@dimen/main_padding_radius"
         app:layout_constraintTop_toTopOf="parent"
