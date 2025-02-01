@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundBlueLight"
+    android:background="@color/blue"
     android:padding="@dimen/icon_padding8"
     android:paddingBottom="20dp"
     tools:context=".MainActivity">
@@ -25,7 +25,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_schearsh"
         style="@style/btnMain"
-        android:text="@string/schearch"
+        android:text="@string/search"
         app:icon="@drawable/ic_find"
         app:layout_constraintBottom_toTopOf="@id/btn_media"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,19 +51,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_media" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="383dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="28dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

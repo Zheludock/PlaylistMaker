@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        val findButton = findViewById<Button>(R.id.btn_schearsh)
+        val findButton = findViewById<Button>(R.id.btn_search)
         val mediaButton = findViewById<Button>(R.id.btn_media)
         val setiingsButton = findViewById<Button>(R.id.btn_settings)
 
