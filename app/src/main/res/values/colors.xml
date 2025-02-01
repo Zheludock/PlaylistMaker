@@ -5,6 +5,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primaryBlack">#1A1B22</color>
     <color name="gray">#AEAFB4</color>
+    <color name="bgGray">#E6E8EB</color>
     <color name="tooglebackgroundDark">#9FBBF3</color>
 
 </resources>
