@@ -30,6 +30,7 @@ class FindActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+                savedText = s.toString()
             }
             override fun afterTextChanged(s: Editable?) {}
         })
