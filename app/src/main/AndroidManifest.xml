@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:theme="@style/Base.Theme.PlaylistMaker"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,16 +13,16 @@
         android:supportsRtl="true"
         tools:targetApi="31">
         <activity
-            android:name=".MediaActivity"
+            android:name="com.example.playlistmaker.MediaActivity"
             android:exported="false" />
         <activity
-            android:name=".FindActivity"
+            android:name="com.example.playlistmaker.FindActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.example.playlistmaker.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.playlistmaker.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
