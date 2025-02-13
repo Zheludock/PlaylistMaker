@@ -5,4 +5,5 @@
     <dimen name="main_text_22">22sp</dimen>
     <dimen name="second_text_16">16sp</dimen>
     <dimen name="dp8">8dp</dimen>
+    <dimen name="dp12">12dp</dimen>
 </resources>

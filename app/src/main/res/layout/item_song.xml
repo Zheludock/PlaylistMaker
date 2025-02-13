@@ -17,17 +17,11 @@
     <TextView
         android:id="@+id/track_name"
         android:layout_width="0dp"
-        android:maxLines="1"
         android:layout_height="wrap_content"
-        android:gravity="top"
         app:layout_constraintStart_toEndOf="@id/track_image"
         app:layout_constraintTop_toTopOf="@id/track_image"
         app:layout_constraintBottom_toTopOf="@id/track_auctor"
-        android:textColor="?attr/colorOnPrimaryContainer"
-        android:textSize="16sp"
-        android:layout_marginHorizontal="@dimen/dp8"
-        android:fontFamily="@font/ys_display_regular"
-        android:textFontWeight="400" />
+        style="@style/song_name" />
 
     <TextView
         android:id="@+id/track_auctor"
