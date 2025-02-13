@@ -26,6 +26,7 @@
         android:hint="@string/search"
         android:textCursorDrawable="@drawable/edittextcursor"
         app:layout_constraintTop_toBottomOf="@id/search_top_bar"
+        tools:text="jkehfkjrfeh"
         style="@style/edit_text_in_find" />
 
     <ImageView
