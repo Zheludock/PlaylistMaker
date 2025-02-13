@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.items.Track
 import com.example.playlistmaker.items.TrackAdapter
@@ -41,6 +42,7 @@ class FindActivity : AppCompatActivity() {
         val clearButton = findViewById<ImageView>(R.id.clear_button)
         val rvTrackList = findViewById<RecyclerView>(R.id.rv_track_list)
         rvTrackList.adapter = TrackAdapter(tracks)
+        rvTrackList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

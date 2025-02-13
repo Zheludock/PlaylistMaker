@@ -24,8 +24,8 @@
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
         android:hint="@string/search"
+        android:textCursorDrawable="@drawable/edittextcursor"
         app:layout_constraintTop_toBottomOf="@id/search_top_bar"
-        tools:layout_editor_absoluteX="16dp"
         style="@style/edit_text_in_find" />
 
     <ImageView
@@ -38,14 +38,17 @@
         app:layout_constraintBottom_toBottomOf="@+id/find_music"
         app:layout_constraintEnd_toEndOf="@id/find_music"
         app:layout_constraintTop_toTopOf="@+id/find_music"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:tint="?attr/colorOnSecondary" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_track_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/find_music"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="@dimen/dp16"
+        android:paddingEnd="12dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

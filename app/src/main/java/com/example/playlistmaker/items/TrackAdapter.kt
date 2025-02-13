@@ -1,7 +1,7 @@
 package com.example.playlistmaker.items
 
+import android.util.TypedValue
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,7 +38,13 @@ class TrackAdapter(private val tracks: List<Track>) :
                 .load(track.artworkUrl100)
                 .placeholder(R.drawable.placeholder)
                 .centerInside()
-                .transform(RoundedCorners(10))
+                .transform(
+                    RoundedCorners(
+                        TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_DIP, 2f, itemView.context.resources.displayMetrics
+                        ).toInt()
+                    )
+                )
                 .into(trackImage)
         }
     }

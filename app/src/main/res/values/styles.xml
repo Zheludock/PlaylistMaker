@@ -60,4 +60,11 @@
         <item name="android:textFontWeight">400</item>
         <item name="android:textSize">@dimen/second_text_16</item>
     </style>
+
+    <style name="song_auctor">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textColor">?attr/colorButtonNormal</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
 </resources>
