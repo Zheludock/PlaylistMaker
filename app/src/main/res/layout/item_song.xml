@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/track_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dp8"
+        android:layout_marginStart="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/track_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/track_image"
+        app:layout_constraintTop_toTopOf="@id/track_image"
+        app:layout_constraintBottom_toTopOf="@id/track_auctor"
+        style="@style/song_name" />
+
+    <TextView
+        android:id="@+id/track_auctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        app:drawableEndCompat="@drawable/ic_round"
+        app:layout_constraintStart_toEndOf="@id/track_image"
+        app:layout_constraintTop_toBottomOf="@id/track_name"
+        android:layout_marginHorizontal="@dimen/dp8"
+        style="@style/song_auctor" />
+
+    <TextView
+        android:id="@+id/track_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/song_auctor"
+        app:layout_constraintStart_toEndOf="@id/track_auctor"
+        app:layout_constraintTop_toBottomOf="@id/track_name"
+        app:layout_constraintBottom_toBottomOf="@id/track_auctor"/>
+
+    <ImageView
+        android:id="@+id/arrow_fw"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_arrow_forward"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/track_image"
+        app:layout_constraintBottom_toBottomOf="@id/track_image"
+        android:layout_height="wrap_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

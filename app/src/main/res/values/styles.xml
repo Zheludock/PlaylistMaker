@@ -2,39 +2,79 @@
 <resources>
 
     <style name="btnText22medium">
-        <item name="android:textColor">@color/primaryBlack</item>
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">@dimen/main_text_22</item>
-        <item name="android:fontFamily">@font/ysmedium</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="drawableTint">?attr/colorOnPrimaryContainer</item>
     </style>
 
-    <style name="btnMain" parent="btnText22medium">
+    <style name="btnMain" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:layout_margin">@dimen/icon_padding8</item>
-        <item name="cornerRadius">@dimen/icon_padding8</item>
-        <item name="backgroundTint">@color/white</item>
+        <item name="android:layout_margin">@dimen/dp8</item>
+        <item name="cornerRadius">@dimen/dp8</item>
+        <item name="backgroundTint">?attr/colorSecondary</item>
         <item name="iconGravity">textStart</item>
-        <item name="iconPadding">@dimen/icon_padding8</item>
-        <item name="iconTint">@color/primaryBlack</item>
-
+        <item name="iconPadding">@dimen/dp8</item>
+        <item name="iconTint">?attr/colorOnPrimary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/main_text_22</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
     </style>
 
     <style name="txtWhiteMedium22">
         <item name="android:textSize">@dimen/main_text_22</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:fontFamily">@font/ysmedium</item>
+        <item name="android:textColor">?attr/colorSecondary</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
     </style>
 
     <style name="txtRegular16">
         <item name="android:textSize">@dimen/second_text_16</item>
-        <item name="android:textColor">@color/secondaryBlack</item>
-        <item name="android:fontFamily">@font/yandexsansdisplayregular</item>
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="drawableTint">?attr/colorButtonNormal</item>
     </style>
 
     <style name="MySwitch" parent="txtRegular16">
-        <item name="colorControlActivated">@color/backgroundBlueLight</item>
-        <item name="colorSwitchThumbNormal">@color/settingGray</item>
-        <item name="android:colorForeground">@color/settingGray</item>
+        <item name="trackTint">@drawable/switch_track_selector</item>
+        <item name="thumbTint">@drawable/switch_thumb_selector</item>
+    </style>
+
+    <style name="edit_text_in_find">
+        <item name="android:layout_margin">@dimen/second_text_16</item>
+        <item name="android:autofillHints">text</item>
+        <item name="android:background">@drawable/editextbg</item>
+        <item name="android:drawablePadding">@dimen/dp8</item>
+        <item name="android:drawableTint">?attr/colorOnSecondary</item>
+        <item name="android:textColorHint">?attr/colorOnSecondary</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:inputType">text</item>
+        <item name="android:textColor">@color/primaryBlack</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLength">25</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textSize">@dimen/second_text_16</item>
+    </style>
+
+    <style name="song_auctor">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textColor">?attr/colorButtonNormal</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="song_name">
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">top</item>
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginHorizontal">@dimen/dp8</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+        <item name="android:textFontWeight">400</item>
     </style>
 </resources>

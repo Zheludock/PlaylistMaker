@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundBlueLight"
-    android:padding="@dimen/icon_padding8"
+    android:background="?attr/colorPrimary"
+    android:padding="@dimen/dp8"
     android:paddingBottom="20dp"
     tools:context=".MainActivity">
 
@@ -15,7 +15,7 @@
         style="@style/txtWhiteMedium22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/icon_padding8"
+        android:layout_marginStart="8dp"
         android:paddingTop="6dp"
         android:paddingBottom="32dp"
         android:text="@string/app_name"
@@ -23,9 +23,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_schearsh"
+        android:id="@+id/btn_search"
         style="@style/btnMain"
-        android:text="@string/schearch"
+        android:text="@string/search"
         app:icon="@drawable/ic_find"
         app:layout_constraintBottom_toTopOf="@id/btn_media"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toTopOf="@id/btn_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_schearsh" />
+        app:layout_constraintTop_toBottomOf="@id/btn_search" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_settings"
@@ -51,19 +51,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_media" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="383dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="28dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
