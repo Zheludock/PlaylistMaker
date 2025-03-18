@@ -15,20 +15,17 @@ class SettingsActivity : AppCompatActivity() {
     private var isUserInteraction = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        sharedPreferences = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
-        val isDarkTheme = sharedPreferences.getBoolean("isDarkTheme", false)
-        if (isDarkTheme) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        sharedPreferences = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+
+        val isDarkTheme = sharedPreferences.getBoolean("isDarkTheme", false)
+        setAppTheme(isDarkTheme)
+
         val backButton = findViewById<TextView>(R.id.settings_top_bar)
         backButton.setOnClickListener {
-            val backIntent = Intent(this, MainActivity::class.java)
-            startActivity(backIntent)
+            finish()
         }
 
         val shareButton = findViewById<TextView>(R.id.btn_share)
@@ -65,16 +62,19 @@ class SettingsActivity : AppCompatActivity() {
 
         switch.setOnCheckedChangeListener { _, isChecked ->
             if (isUserInteraction) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                }
+                setAppTheme(isChecked)
                 sharedPreferences.edit().putBoolean("isDarkTheme", isChecked).apply()
                 recreate()
             }
         }
-        isUserInteraction = true
+    }
+
+    private fun setAppTheme(isDarkTheme: Boolean) {
+        if (isDarkTheme) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

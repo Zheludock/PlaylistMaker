@@ -1,5 +1,6 @@
 package com.example.playlistmaker.items
 
+import android.icu.text.SimpleDateFormat
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
+import java.util.Locale
 
-class TrackAdapter(private val tracks: List<Track>) :
+class TrackAdapter(private var tracks: List<Track>) :
     RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TrackViewHolder(parent)
@@ -48,11 +50,19 @@ class TrackAdapter(private val tracks: List<Track>) :
                 .into(trackImage)
         }
     }
+
+    fun updateTracks(newTracks: List<Track>) {
+        tracks = newTracks
+        notifyDataSetChanged()
+    }
 }
 
 data class Track(
-    val trackName: String, // Название композиции
-    val artistName: String, // Имя исполнителя
-    val trackTime: String, // Продолжительность трека
-    val artworkUrl100: String, // Ссылка на изображение обложки
-)
+    val trackName: String,
+    val artistName: String,
+    val trackTimeMillis: Long,
+    val artworkUrl100: String,
+){
+    val trackTime: String = SimpleDateFormat("mm:ss", Locale.getDefault()).format(trackTimeMillis)
+}
+

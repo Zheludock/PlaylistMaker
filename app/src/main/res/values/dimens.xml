@@ -6,4 +6,5 @@
     <dimen name="second_text_16">16sp</dimen>
     <dimen name="dp8">8dp</dimen>
     <dimen name="dp12">12dp</dimen>
+    <dimen name="error_19">19sp</dimen>
 </resources>
