@@ -54,6 +54,18 @@
         android:paddingTop="@dimen/dp16"
         android:paddingEnd="@dimen/dp12"/>
 
+    <Button
+        android:id="@+id/btn_clearFindHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/rv_track_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/clearFindHistory"
+        android:gravity="center"
+        style="@style/darkButton"
+        android:layout_marginTop="@dimen/dp24"/>
+
     <LinearLayout
         android:id="@+id/empty_state"
         android:layout_width="match_parent"
