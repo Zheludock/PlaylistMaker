@@ -12,4 +12,8 @@
     <string name="email_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="link_to_ya_dev">https://practicum.yandex.ru/profile/android-developer-plus/</string>
     <string name="link_to_contract">https://yandex.ru/legal/practicum_offer</string>
+    <string name="empty_find">Ничего не нашлось</string>
+    <string name="bad_internet1">Проблемы со связью</string>
+    <string name="bad_internet2">Загрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="reload">Обновить</string>
 </resources>

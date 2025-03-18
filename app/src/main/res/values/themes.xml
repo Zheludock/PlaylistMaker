@@ -12,5 +12,6 @@
         <item name="colorButtonNormal">@color/gray</item>
         <item name="colorBackgroundFloating">@color/bgGray</item>
         <item name="colorOnSurface">@color/gray</item>
+        <item name="colorTertiary">@color/white</item>
     </style>
 </resources>
