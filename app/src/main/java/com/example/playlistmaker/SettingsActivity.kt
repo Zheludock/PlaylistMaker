@@ -1,27 +1,17 @@
 package com.example.playlistmaker
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 
 class SettingsActivity : AppCompatActivity() {
-    private lateinit var sharedPreferences: SharedPreferences
-    private var isUserInteraction = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
-        sharedPreferences = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
-
-        val isDarkTheme = sharedPreferences.getBoolean("isDarkTheme", false)
-        setAppTheme(isDarkTheme)
 
         val backButton = findViewById<TextView>(R.id.settings_top_bar)
         backButton.setOnClickListener {
@@ -58,32 +48,11 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         val switch = findViewById<SwitchCompat>(R.id.dark_theme_toogle)
-        switch.isChecked = isDarkTheme
 
-        switch.setOnCheckedChangeListener { _, isChecked ->
-            if (isUserInteraction) {
-                setAppTheme(isChecked)
-                sharedPreferences.edit().putBoolean("isDarkTheme", isChecked).apply()
-                recreate()
-            }
+        switch.isChecked = (applicationContext as App).isDarkTheme()
+
+        switch.setOnCheckedChangeListener { _, checked ->
+            (applicationContext as App).switchTheme(checked)
         }
-    }
-
-    private fun setAppTheme(isDarkTheme: Boolean) {
-        if (isDarkTheme) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean("isUserInteraction", isUserInteraction)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        isUserInteraction = savedInstanceState.getBoolean("isUserInteraction", true)
     }
 }

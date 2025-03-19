@@ -3,6 +3,7 @@ package com.example.playlistmaker.items
 import android.icu.text.SimpleDateFormat
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,21 +13,33 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import java.util.Locale
 
-class TrackAdapter(private var tracks: List<Track>) :
-    RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
+class TrackAdapter(
+    private var tracks: List<Track>,
+    private val onTrackClick: (Track) -> Unit
+) : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TrackViewHolder(parent)
-
-    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
-        holder.bind(tracks[position])
+    fun updateTracks(newTracks: List<Track>) {
+        this.tracks = newTracks
+        notifyDataSetChanged()
     }
 
-    override fun getItemCount() = tracks.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_song, parent, false)
+        return TrackViewHolder(view)
+    }
 
-    inner class TrackViewHolder(parent: ViewGroup) :
-        RecyclerView.ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_song, parent, false)
-        ) {
+    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
+        val track = tracks[position]
+        holder.bind(track)
+        holder.itemView.setOnClickListener { onTrackClick(track) }
+    }
+
+    override fun getItemCount(): Int {
+        return tracks.size
+    }
+
+    class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val trackName: TextView = itemView.findViewById(R.id.track_name)
         private val artistName: TextView = itemView.findViewById(R.id.track_auctor)
         private val trackTime: TextView = itemView.findViewById(R.id.track_duration)
@@ -50,19 +63,14 @@ class TrackAdapter(private var tracks: List<Track>) :
                 .into(trackImage)
         }
     }
-
-    fun updateTracks(newTracks: List<Track>) {
-        tracks = newTracks
-        notifyDataSetChanged()
-    }
 }
 
 data class Track(
+    val trackId: Int,
     val trackName: String,
     val artistName: String,
     val trackTimeMillis: Long,
     val artworkUrl100: String,
-){
+) {
     val trackTime: String = SimpleDateFormat("mm:ss", Locale.getDefault()).format(trackTimeMillis)
 }
-
