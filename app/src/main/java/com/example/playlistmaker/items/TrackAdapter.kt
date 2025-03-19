@@ -16,58 +16,27 @@ import java.util.Locale
 class TrackAdapter(
     private var tracks: List<Track>,
     private val onTrackClick: (Track) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
 
-    companion object {
-        private const val TYPE_HEADER = 0
-        private const val TYPE_TRACK = 1
+    fun updateTracks(newTracks: List<Track>) {
+        this.tracks = newTracks
+        notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            TYPE_HEADER -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_header, parent, false)
-                HeaderViewHolder(view)
-            }
-            else -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_song, parent, false)
-                TrackViewHolder(view)
-            }
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_song, parent, false)
+        return TrackViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is HeaderViewHolder -> holder.bind("Вы искали")
-            is TrackViewHolder -> {
-                val track = tracks[position - 1]
-                holder.bind(track)
-                holder.itemView.setOnClickListener { onTrackClick(track) }
-            }
-        }
+    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
+        val track = tracks[position]
+        holder.bind(track)
+        holder.itemView.setOnClickListener { onTrackClick(track) }
     }
 
     override fun getItemCount(): Int {
         return tracks.size
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return if (position == 0) TYPE_HEADER else TYPE_TRACK
-    }
-
-    fun updateTracks(newTracks: List<Track>?) {
-        tracks = newTracks ?: emptyList()
-        notifyDataSetChanged()
-    }
-
-    class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val headerText: TextView = itemView.findViewById(R.id.header_text)
-
-        fun bind(header: String) {
-            headerText.text = header
-        }
     }
 
     class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -102,6 +71,6 @@ data class Track(
     val artistName: String,
     val trackTimeMillis: Long,
     val artworkUrl100: String,
-){
+) {
     val trackTime: String = SimpleDateFormat("mm:ss", Locale.getDefault()).format(trackTimeMillis)
 }

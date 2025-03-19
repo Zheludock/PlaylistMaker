@@ -3,6 +3,7 @@ package com.example.playlistmaker
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 
 class App : Application() {
 
@@ -29,7 +30,7 @@ class App : Application() {
     }
 
     private fun saveThemeState(darkThemeEnabled: Boolean) {
-        sharedPreferences.edit().putBoolean("dark_theme", darkThemeEnabled).apply()
+        sharedPreferences.edit { putBoolean("dark_theme", darkThemeEnabled) }
     }
 
     private fun loadThemeState() {

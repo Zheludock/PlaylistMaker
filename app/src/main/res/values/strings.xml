@@ -17,4 +17,5 @@
     <string name="bad_internet2">Загрузка не удалась. Проверьте подключение к интернету</string>
     <string name="reload">Обновить</string>
     <string name="clearFindHistory">Очистить историю</string>
+    <string name="history">Вы искали</string>
 </resources>

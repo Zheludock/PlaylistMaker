@@ -3,33 +3,35 @@ package com.example.playlistmaker
 import android.content.Context
 import com.example.playlistmaker.items.Track
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 class SearchHistory(context: Context) {
 
     private val sharedPreferences = context.getSharedPreferences("search_history", Context.MODE_PRIVATE)
-    private val gson = Gson()
     private val maxHistorySize = 10
 
     fun addTrack(track: Track) {
         val history = getHistory().toMutableList()
-        history.removeAll { it.trackId == track.trackId }
+
+        val existingTrackIndex = history.indexOfFirst { it.trackId == track.trackId }
+
+        if (existingTrackIndex != -1) {
+            history.removeAt(existingTrackIndex)
+        }
+
         history.add(0, track)
-        val trimmedHistory = if (history.size > maxHistorySize) history.subList(0, maxHistorySize) else history
-        saveHistory(trimmedHistory)
+
+        if (history.size > maxHistorySize) {
+            history.removeAt(history.size - 1)
+        }
+
+        saveHistory(history)
     }
 
-
     fun getHistory(): List<Track> {
-        val json = sharedPreferences.getString("history", null)
-        return try {
-            if (json != null) {
-                val type = object : TypeToken<List<Track>>() {}.type
-                gson.fromJson(json, type)
-            } else {
-                emptyList()
-            }
-        } catch (e: Exception) {
+        val historyJson = sharedPreferences.getString("history", null)
+        return if (historyJson != null) {
+            Gson().fromJson(historyJson, Array<Track>::class.java).toList()
+        } else {
             emptyList()
         }
     }
@@ -39,7 +41,7 @@ class SearchHistory(context: Context) {
     }
 
     private fun saveHistory(history: List<Track>) {
-        val json = gson.toJson(history)
-        sharedPreferences.edit().putString("history", json).apply()
+        val historyJson = Gson().toJson(history)
+        sharedPreferences.edit().putString("history", historyJson).apply()
     }
 }

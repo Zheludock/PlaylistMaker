@@ -13,59 +13,53 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.items.ITunesApiService
-import com.example.playlistmaker.items.ITunesResponse
-import com.example.playlistmaker.items.Track
 import com.example.playlistmaker.items.TrackAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class FindActivity : AppCompatActivity() {
 
-    private var savedText = ""
-    private lateinit var searchHistory: SearchHistory
+    private lateinit var viewModel: FindViewModel
     private lateinit var adapter: TrackAdapter
     private lateinit var emptyState: LinearLayout
     private lateinit var errorState: LinearLayout
     private lateinit var rvTrackList: RecyclerView
-    private lateinit var btnClearHistory: Button // Добавляем переменную для кнопки
-    private val iTunesApiService = createITunesApiService()
-    private var lastSearchQuery: String = ""
+    private lateinit var btnClearHistory: Button
+    private lateinit var tvHeader: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find)
-        searchHistory = SearchHistory(this)
+
+        viewModel = ViewModelProvider(this).get(FindViewModel::class.java)
+        viewModel.initSearchHistory(this)
 
         emptyState = findViewById(R.id.empty_state)
         errorState = findViewById(R.id.error_state)
         rvTrackList = findViewById(R.id.rv_track_list)
-        btnClearHistory = findViewById(R.id.btn_clearFindHistory) // Инициализация кнопки
+        btnClearHistory = findViewById(R.id.btn_clearFindHistory)
+        tvHeader = findViewById(R.id.header_text)
+
+        adapter = TrackAdapter(emptyList()) { track ->
+            viewModel.addTrackToHistory(track)
+            //viewModel.getSearchHistory()
+        }
+        rvTrackList.layoutManager = LinearLayoutManager(this)
+        rvTrackList.adapter = adapter
 
         val backButton = findViewById<TextView>(R.id.search_top_bar)
         val searchEditText = findViewById<EditText>(R.id.find_music)
         val clearButton = findViewById<ImageView>(R.id.clear_button)
         val btnReload = findViewById<Button>(R.id.btn_reload)
 
-        adapter = TrackAdapter(emptyList()) { track ->
-            searchHistory.addTrack(track)
-        }
-        rvTrackList.layoutManager = LinearLayoutManager(this)
-        rvTrackList.adapter = adapter
-
         backButton.setOnClickListener {
             finish()
         }
 
         btnClearHistory.setOnClickListener {
-            searchHistory.clearHistory()
-            showHistory() // Обновляем отображение после очистки истории
+            viewModel.clearSearchHistory()
         }
 
         searchEditText.addTextChangedListener(object : TextWatcher {
@@ -73,10 +67,8 @@ class FindActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
-                savedText = s.toString()
-
                 if (s.isNullOrEmpty()) {
-                    showHistory()
+                    viewModel.getSearchHistory()
                 }
             }
 
@@ -85,7 +77,7 @@ class FindActivity : AppCompatActivity() {
 
         searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                performSearch(searchEditText.text.toString())
+                viewModel.searchSongs(searchEditText.text.toString())
                 hideKeyboard(searchEditText)
                 true
             } else {
@@ -97,80 +89,55 @@ class FindActivity : AppCompatActivity() {
             searchEditText.text.clear()
             searchEditText.clearFocus()
             hideKeyboard(searchEditText)
-            adapter.updateTracks(emptyList())
-            showHistory()
+            viewModel.getSearchHistory()
         }
 
         btnReload.setOnClickListener {
-            if (lastSearchQuery.isNotEmpty()) {
-                performSearch(lastSearchQuery)
-            }
+            viewModel.searchSongs(searchEditText.text.toString())
         }
 
-        showHistory()
+        observeViewModel()
+        viewModel.getSearchHistory()
     }
 
-    private fun performSearch(term: String) {
-        if (term.isEmpty()) return
-        lastSearchQuery = term
+    private fun observeViewModel() {
+        viewModel.tracks.observe(this) { tracks ->
+            tracks?.let { adapter.updateTracks(it) }
+        }
 
-        showLoading()
-        btnClearHistory.visibility = View.GONE
-
-        iTunesApiService.searchSongs(term).enqueue(object : Callback<ITunesResponse> {
-            override fun onResponse(call: Call<ITunesResponse>, response: Response<ITunesResponse>) {
-                if (response.isSuccessful) {
-                    val tracks = response.body()?.results?.map {
-                        Track(
-                            it.trackId,
-                            it.trackName,
-                            it.artistName,
-                            it.trackTimeMillis,
-                            it.artworkUrl100,
-                        )
-                    } ?: emptyList()
-
-                    if (tracks.isEmpty()) {
-                        showEmptyState()
-                    } else {
-                        showResults(tracks)
-                    }
-                } else {
-                    showErrorState()
-                }
+        viewModel.state.observe(this) { state ->
+            when (state) {
+                FindViewModel.FindState.Loading -> showLoadingState()
+                FindViewModel.FindState.Success -> showResultsState()
+                FindViewModel.FindState.Empty -> showEmptyState()
+                FindViewModel.FindState.Error -> showErrorState()
+                FindViewModel.FindState.Hystory -> showHistoryState()
             }
-
-            override fun onFailure(call: Call<ITunesResponse>, t: Throwable) {
-                showErrorState()
-            }
-        })
+        }
     }
 
-    private fun showLoading() {
+    private fun showHistoryState() {
+        rvTrackList.visibility = View.VISIBLE
+        emptyState.visibility = View.GONE
+        errorState.visibility = View.GONE
+        btnClearHistory.visibility = View.VISIBLE
+        tvHeader.visibility = View.VISIBLE
+    }
+
+    private fun showLoadingState() {
         rvTrackList.visibility = View.GONE
         emptyState.visibility = View.GONE
         errorState.visibility = View.GONE
         btnClearHistory.visibility = View.GONE
+        tvHeader.visibility = View.GONE
     }
 
-    private fun showHistory() {
-        val history = searchHistory.getHistory()
-        if (history.isEmpty()) {
-            showResults(emptyList())
-            btnClearHistory.visibility = View.GONE
-        } else {
-            adapter.updateTracks(history)
-            showResults(history)
-            btnClearHistory.visibility = View.VISIBLE
-        }
-    }
-
-    private fun showResults(tracks: List<Track>) {
+    private fun showResultsState() {
         rvTrackList.visibility = View.VISIBLE
         emptyState.visibility = View.GONE
         errorState.visibility = View.GONE
-        adapter.updateTracks(tracks)
         btnClearHistory.visibility = View.GONE
+        tvHeader.visibility = View.GONE
     }
 
     private fun showEmptyState() {
@@ -178,6 +145,7 @@ class FindActivity : AppCompatActivity() {
         emptyState.visibility = View.VISIBLE
         errorState.visibility = View.GONE
         btnClearHistory.visibility = View.GONE
+        tvHeader.visibility = View.GONE
     }
 
     private fun showErrorState() {
@@ -185,18 +153,11 @@ class FindActivity : AppCompatActivity() {
         emptyState.visibility = View.GONE
         errorState.visibility = View.VISIBLE
         btnClearHistory.visibility = View.GONE
+        tvHeader.visibility = View.GONE
     }
 
     private fun hideKeyboard(view: View) {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    private fun createITunesApiService(): ITunesApiService {
-        return Retrofit.Builder()
-            .baseUrl("https://itunes.apple.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ITunesApiService::class.java)
     }
 }
