@@ -1,6 +1,7 @@
 package com.example.playlistmaker.items
 
 import android.icu.text.SimpleDateFormat
+import android.os.Parcelable
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
+import kotlinx.android.parcel.Parcelize
 import java.util.Locale
 
 class TrackAdapter(
@@ -65,12 +67,28 @@ class TrackAdapter(
     }
 }
 
+@Parcelize
 data class Track(
     val trackId: Int,
     val trackName: String,
     val artistName: String,
     val trackTimeMillis: Long,
     val artworkUrl100: String,
-) {
+    val collectionName: String?,
+    val releaseDate: String,
+    val primaryGenreName: String,
+    val country: String,
+) : Parcelable {
     val trackTime: String = SimpleDateFormat("mm:ss", Locale.getDefault()).format(trackTimeMillis)
+    val year: String?
+        get() =
+            if (!releaseDate.isNullOrBlank()) {
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault()).parse(releaseDate)
+                    ?.let {
+                        SimpleDateFormat(
+                            "yyyy",
+                            Locale.getDefault()
+                        ).format(it)
+                    } ?: ""
+            } else null
 }

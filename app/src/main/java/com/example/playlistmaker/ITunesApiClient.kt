@@ -24,6 +24,10 @@ class ITunesApiClient {
                             it.artistName,
                             it.trackTimeMillis,
                             it.artworkUrl100,
+                            it.collectionName,
+                            it.releaseDate,
+                            it.primaryGenreName,
+                            it.country,
                         )
                     } ?: emptyList()
                     callback(tracks, null)

@@ -11,5 +11,6 @@
         <item name="colorBackgroundFloating">@color/white</item>
         <item name="colorOnSurface">@color/blue</item>
         <item name="colorTertiary">@color/primaryBlack</item>
+        <item name="colorOnPrimaryFixedVariant">@color/gray</item>
     </style>
 </resources>
