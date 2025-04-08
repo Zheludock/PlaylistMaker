@@ -49,10 +49,10 @@ class SettingsActivity : AppCompatActivity() {
 
         val switch = findViewById<SwitchCompat>(R.id.dark_theme_toogle)
 
-        switch.isChecked = (applicationContext as App).isDarkTheme()
+        switch.isChecked = (application as App).isDarkTheme()
 
         switch.setOnCheckedChangeListener { _, checked ->
-            (applicationContext as App).switchTheme(checked)
+            (application as App).switchTheme(checked)
         }
     }
 }

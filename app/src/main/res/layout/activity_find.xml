@@ -24,6 +24,7 @@
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
         android:imeOptions="actionDone"
+        android:drawableStart="@drawable/ic_find"
         android:singleLine="true"
         android:hint="@string/search"
         android:textCursorDrawable="@drawable/edittextcursor"
