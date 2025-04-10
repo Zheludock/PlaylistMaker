@@ -3,6 +3,7 @@
     <style name="Base.Theme.PlaylistMaker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/white</item>
         <item name="colorPrimary">@color/blue</item>
         <item name="colorSecondary">@color/white</item>
         <item name="colorOnPrimaryContainer">@color/primaryBlack</item>
@@ -13,5 +14,7 @@
         <item name="colorBackgroundFloating">@color/bgGray</item>
         <item name="colorOnSurface">@color/gray</item>
         <item name="colorTertiary">@color/white</item>
+        <item name="colorOnPrimaryFixedVariant">@color/gray</item>
     </style>
+
 </resources>

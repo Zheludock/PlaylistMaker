@@ -10,46 +10,59 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/dp8"
         android:layout_marginStart="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/track_name"
+        style="@style/song_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/track_image"
-        app:layout_constraintTop_toTopOf="@id/track_image"
+        android:ellipsize="end"
+        android:lines="1"
+        android:maxLines="1"
+        android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@id/track_auctor"
-        style="@style/song_name" />
+        app:layout_constraintStart_toEndOf="@id/track_image"
+        app:layout_constraintEnd_toEndOf="@id/guideline"
+        android:gravity="start"
+        app:layout_constraintTop_toTopOf="@id/track_image" />
 
     <TextView
         android:id="@+id/track_auctor"
+        style="@style/song_auctor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp8"
         android:maxLines="1"
         app:drawableEndCompat="@drawable/ic_round"
         app:layout_constraintStart_toEndOf="@id/track_image"
-        app:layout_constraintTop_toBottomOf="@id/track_name"
-        android:layout_marginHorizontal="@dimen/dp8"
-        style="@style/song_auctor" />
+        app:layout_constraintTop_toBottomOf="@id/track_name" />
 
     <TextView
         android:id="@+id/track_duration"
+        style="@style/song_auctor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/song_auctor"
+        app:layout_constraintBottom_toBottomOf="@id/track_auctor"
         app:layout_constraintStart_toEndOf="@id/track_auctor"
-        app:layout_constraintTop_toBottomOf="@id/track_name"
-        app:layout_constraintBottom_toBottomOf="@id/track_auctor"/>
+        app:layout_constraintTop_toBottomOf="@id/track_name" />
 
     <ImageView
         android:id="@+id/arrow_fw"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_arrow_forward"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/track_image"
         app:layout_constraintBottom_toBottomOf="@id/track_image"
-        android:layout_height="wrap_content" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/track_image" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="363dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,4 +16,12 @@
     <string name="bad_internet1">Проблемы со связью</string>
     <string name="bad_internet2">Загрузка не удалась. Проверьте подключение к интернету</string>
     <string name="reload">Обновить</string>
+    <string name="clearFindHistory">Очистить историю</string>
+    <string name="history">Вы искали</string>
+    <string name="duration">Длительность</string>
+    <string name="album">Альбом</string>
+    <string name="year">Год</string>
+    <string name="genre">Жанр</string>
+    <string name="country">Страна</string>
+    <string name="random_time">0:30</string>
 </resources>

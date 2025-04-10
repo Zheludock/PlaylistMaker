@@ -1,6 +1,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Состояние, когда Switch включен -->
-    <item android:state_checked="true" android:color="@color/tooglebackgroundDark" /> <!-- Светло-синий -->
+    <item android:state_checked="true" android:color="?attr/colorControlActivated" /> <!-- Светло-синий -->
     <!-- Состояние, когда Switch выключен -->
-    <item android:color="@color/bgGray" /> <!-- Светло-серый -->
+    <item android:color="?attr/colorBackgroundFloating" /> <!-- Светло-серый -->
 </selector>
